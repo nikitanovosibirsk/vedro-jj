@@ -15,10 +15,10 @@ pytest-cov = "*"
 mypy = "*"
 flake8 = "*"
 isort = "*"
-twine = "*"
 setuptools = "*"
 wheel = "*"
 pipfile = "*"
+twine = ">=3.8,<4.0"
 
 [requires]
 python_version = "3.8"
