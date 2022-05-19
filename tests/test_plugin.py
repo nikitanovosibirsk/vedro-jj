@@ -1,6 +1,6 @@
 from vedro.core import Plugin
 
-from vedro_jj import RemoteMockPlugin, RemoteMock
+from vedro_jj import RemoteMock, RemoteMockPlugin
 
 
 def test_interactive_plugin():
