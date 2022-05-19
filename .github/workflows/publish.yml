@@ -19,7 +19,7 @@ jobs:
     - name: Install dependencies
       run: |
         pip3 install pipenv
-        pipenv sync
+        pipenv sync --dev
     - name: Build
       run: pipenv run build
     - name: Publish
