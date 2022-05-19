@@ -18,8 +18,8 @@ jobs:
         python-version: '3.10'
     - name: Install dependencies
       run: |
-        pip3 install --quiet --upgrade pip pipenv
-        pipenv install --dev
+        pip3 install pipenv
+        pipenv sync
     - name: Build
       run: pipenv run build
     - name: Publish

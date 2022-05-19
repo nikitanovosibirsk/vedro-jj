@@ -18,6 +18,7 @@ isort = "*"
 twine = "*"
 setuptools = "*"
 wheel = "*"
+pipfile = "*"
 
 [requires]
 python_version = "3.8"
