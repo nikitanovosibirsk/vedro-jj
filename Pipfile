@@ -10,8 +10,18 @@ aiohttp = ">=3.5,<4.0"
 
 [dev-packages]
 pytest = ">=7.1,<8.0"
+pytest-asyncio = ">=0.18,<0.19"
+pytest-cov = ">=3.0,<4.0"
 flake8 = ">=4.0,<5.0"
 isort = ">=5.10,<6.0"
 
 [requires]
 python_version = "3.8"
+
+[scripts]
+test = "pytest -s tests/"
+coverage = "pytest --cov --cov-report=term --cov-report=xml:coverage.xml"
+check-types = "mypy vedro_jj --strict"
+check-imports = "isort vedro_jj tests --check-only"
+check-style = "flake8 vedro_jj tests"
+sort-imports = "isort vedro_jj tests"
