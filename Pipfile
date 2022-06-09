@@ -18,14 +18,15 @@ isort = "*"
 setuptools = "*"
 wheel = "*"
 pipfile = "*"
-twine = ">=3.8,<4.0"
+twine = "*"
 
 [requires]
-python_version = "3.8"
+python_version = ">=3.8"
 
 [scripts]
 test = "pytest -s tests/"
 coverage = "pytest --cov --cov-report=term --cov-report=xml:coverage.xml"
+lint = "sh -c 'pipenv run check-style && pipenv run check-imports && pipenv run check-types'"
 check-types = "mypy vedro_jj --strict"
 check-imports = "isort vedro_jj tests --check-only"
 check-style = "flake8 vedro_jj tests"
