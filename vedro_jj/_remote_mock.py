@@ -66,7 +66,6 @@ class RemoteMockPlugin(Plugin):
     async def on_cleanup(self, event: CleanupEvent) -> None:
         if self._server:
             self._server.cleanup()
-            self._server = None
 
         if self._thread:
             self._thread.join(1.0)

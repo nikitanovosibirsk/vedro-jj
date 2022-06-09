@@ -3,7 +3,9 @@ from aiohttp import ClientSession
 from vedro.core import Dispatcher, Report
 from vedro.events import CleanupEvent, StartupEvent
 
+import jj
 import vedro_jj
+from jj.mock import Mocked, mocked
 from vedro_jj import RemoteMockPlugin
 
 
@@ -38,15 +40,22 @@ async def plugin_threaded(dispatcher: Dispatcher) -> RemoteMockPlugin:
     await dispatcher.fire(CleanupEvent(Report()))
 
 
-@pytest.mark.asyncio
-async def test_mock(plugin: RemoteMockPlugin, dispatcher):
-    async with ClientSession() as session:
-        response = await session.get("http://localhost:8080")
-    assert response.status == 404
+@pytest.fixture()
+async def mock() -> Mocked:
+    async with mocked(jj.match("*"), jj.Response()) as mock:
+        yield mock
 
 
 @pytest.mark.asyncio
-async def test_mock_threaded(plugin: RemoteMockPlugin, dispatcher):
+async def test_mock(plugin: RemoteMockPlugin, mock: Mocked):
+    async with mock:
+        async with ClientSession() as session:
+            response = await session.get("http://localhost:8080")
+        assert response.status == 200
+
+
+@pytest.mark.asyncio
+async def test_mock_threaded(plugin_threaded: RemoteMockPlugin, mock: Mocked):
     async with ClientSession() as session:
         response = await session.get("http://localhost:8080")
-    assert response.status == 404
+    assert response.status == 200
