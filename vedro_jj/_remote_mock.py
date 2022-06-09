@@ -5,15 +5,14 @@ from threading import Thread
 from typing import Any, Type, Union
 
 from aiohttp import web
-from vedro.core import Dispatcher, Plugin, PluginConfig
-from vedro.events import CleanupEvent, StartupEvent
-
 from jj import default_app, default_handler
 from jj.middlewares import SelfMiddleware
 from jj.mock import Mock
 from jj.resolvers import Registry, ReversedResolver
 from jj.runners import AppRunner
 from jj.servers import Server
+from vedro.core import Dispatcher, Plugin, PluginConfig
+from vedro.events import CleanupEvent, StartupEvent
 
 __all__ = ("RemoteMock", "RemoteMockPlugin",)
 
