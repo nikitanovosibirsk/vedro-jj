@@ -2,7 +2,7 @@ import asyncio
 from asyncio import AbstractEventLoop, Task
 from functools import partial
 from threading import Thread
-from typing import Any, Type, Union
+from typing import Any, List, Type, Union
 
 from aiohttp import web
 from jj import default_app, default_handler
@@ -14,9 +14,20 @@ from jj.servers import Server
 from vedro.core import Dispatcher, Plugin, PluginConfig
 from vedro.events import CleanupEvent, StartupEvent
 
-__all__ = ("RemoteMock", "RemoteMockPlugin",)
+from ._interceptor import Interceptor, InterceptorType
+
+__all__ = ("RemoteMock", "RemoteMockPlugin", "interceptor",)
 
 
+_interceptors: List[InterceptorType] = []
+
+
+def interceptor(fn: InterceptorType) -> InterceptorType:
+    _interceptors.append(fn)
+    return fn
+
+
+@Interceptor(_interceptors)
 class _Mock(Mock):
     pass
 
